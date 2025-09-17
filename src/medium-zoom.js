@@ -236,11 +236,16 @@ const mediumZoom = (selector, options = {}) => {
         viewportHeight || container.height - zoomOptions.margin * 2
 
       const zoomTarget = active.zoomedHd || active.original
+      const isVideo = zoomTarget.tagName === 'VIDEO'
       const naturalWidth = isSvg(zoomTarget)
         ? viewportWidth
+        : isVideo
+        ? zoomTarget.videoWidth
         : zoomTarget.naturalWidth || viewportWidth
       const naturalHeight = isSvg(zoomTarget)
         ? viewportHeight
+        : isVideo
+        ? zoomTarget.videoHeight
         : zoomTarget.naturalHeight || viewportHeight
       const { top, left, width, height } = zoomTarget.getBoundingClientRect()
 
